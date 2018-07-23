@@ -52,6 +52,9 @@ matrix:
 compiler:
   - gcc
 
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pcre2; fi
+
 script:
   - script/build.sh && script/package.sh
 
