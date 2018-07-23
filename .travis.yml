@@ -18,6 +18,7 @@ matrix:
         apt:
           packages:
             - libcurl4-openssl-dev
+            - libpcre2-dev
 
     - os: osx
       language: c
