@@ -6,9 +6,12 @@ SOURCE="$ROOT/git"
 DESTINATION="$ROOT/build/git"
 
 GIT_LFS_VERSION=2.5.0 \
-TARGET_PLATFORM=ubuntu \
-GIT_LFS_CHECKSUM=d840829bca0827fb14537fbcd6fdba192dd74a67d0d5a6fb12d060c14a876ba7 \
-. "$ROOT/script/build-ubuntu.sh" $SOURCE $DESTINATION
+TARGET_PLATFORM=windows \
+WIN_ARCH=32 \
+GIT_FOR_WINDOWS_URL=https://github.com/git-for-windows/git/releases/download/v2.18.0.windows.1/MinGit-2.18.0-32-bit.zip \
+GIT_FOR_WINDOWS_CHECKSUM=c2f59c121d0f5aac31c959e5ba2878542b6cbca6604778566061d45585e70895 \
+GIT_LFS_CHECKSUM=408f95d919037b068318cb2affb450c17a46915fe6b3d9b10dfc15dc0df15bca \
+. "$ROOT/script/build-windows.sh" $SOURCE $DESTINATION
 
 if [ "os" != "windows" ]; then
   echo "Archive contents:"
@@ -17,8 +20,8 @@ if [ "os" != "windows" ]; then
   cd - > /dev/null
 fi
 
-GZIP_FILE="dugite-native-$VERSION-ubuntu-test.tar.gz"
-LZMA_FILE="dugite-native-$VERSION-ubuntu-test.lzma"
+GZIP_FILE="dugite-native-$VERSION-windows-test.tar.gz"
+LZMA_FILE="dugite-native-$VERSION-windows-test.lzma"
 
 echo ""
 echo "Creating archives..."

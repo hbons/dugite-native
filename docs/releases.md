@@ -24,8 +24,10 @@ To speed up the manual work, here's the Markdown you should use for the release 
 | dugite-native-v{version}-macOS.lzma | `{sha2}` |
 | dugite-native-v{version}-ubuntu.tar.gz | `{sha3}` |
 | dugite-native-v{version}-ubuntu.lzma | `{sha4}` |
-| dugite-native-v{version}-win32.tar.gz | `{sha5}` |
-| dugite-native-v{version}-win32.lzma | `{sha6}` |
+| dugite-native-v{version}-windows-x64.tar.gz | `{sha5}` |
+| dugite-native-v{version}-windows-x64.lzma | `{sha6}` |
+| dugite-native-v{version}-windows-x86.tar.gz | `{sha5}` |
+| dugite-native-v{version}-windows-x86.lzma | `{sha6}` |
 | dugite-native-v{version}-arm64.tar.gz | `{sha7}` |
 | dugite-native-v{version}-arm64.lzma | `{sha8}` |
 ```

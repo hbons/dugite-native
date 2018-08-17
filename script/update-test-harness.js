@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const YAML = require('node-yaml')
 
-function writeEnvironmentToFile(os, env) {
+function writeEnvironmentToFile(os, env, filename) {
   const environmentVariables = env.map(a => `${a} \\`).join('\n')
 
   const script = `build-${os}.sh`
@@ -16,10 +16,12 @@ DESTINATION="$ROOT/build/git"
 ${environmentVariables}
 . "$ROOT/script/${script}" $SOURCE $DESTINATION
 
-echo "Archive contents:"
-cd $DESTINATION
-du -ah $DESTINATION
-cd - > /dev/null
+if [ "os" != "windows" ]; then
+  echo "Archive contents:"
+  cd $DESTINATION
+  du -ah $DESTINATION
+  cd - > /dev/null
+fi
 
 GZIP_FILE="dugite-native-$VERSION-${os}-test.tar.gz"
 LZMA_FILE="dugite-native-$VERSION-${os}-test.lzma"
@@ -49,7 +51,7 @@ echo "Packages created:"
 echo "\${GZIP_FILE} - \${GZIP_SIZE} - checksum: \${GZIP_CHECKSUM}"
 echo "\${LZMA_FILE} - \${LZMA_SIZE} - checksum: \${LZMA_CHECKSUM}"`
 
-  const destination = path.resolve(__dirname, '..', `test/${os}.sh`)
+  const destination = path.resolve(__dirname, '..', `test/${filename}.sh`)
   fs.writeFileSync(destination, fileContents, { encoding: 'utf-8', mode: '777' })
 }
 
@@ -73,8 +75,12 @@ for (const platform of platforms) {
   switch (os) {
     case 'ubuntu':
     case 'macos':
-    case 'win32':
-      writeEnvironmentToFile(os, env)
+      writeEnvironmentToFile(os, env, os)
+      break
+    case 'windows':
+      const arch = env.find(x => x.startsWith('WIN_ARCH'))
+      const fileName = arch.endsWith('64') ? 'windows-x64' : 'windows-x86'
+      writeEnvironmentToFile(os, env, fileName)
       break
   }
 }

@@ -10,10 +10,12 @@ TARGET_PLATFORM=macOS \
 GIT_LFS_CHECKSUM=41c607f2a73eec2cc28464d6c867819139ced137a8fa9bdc13c3bf3b98d6bfb2 \
 . "$ROOT/script/build-macos.sh" $SOURCE $DESTINATION
 
-echo "Archive contents:"
-cd $DESTINATION
-du -ah $DESTINATION
-cd - > /dev/null
+if [ "os" != "windows" ]; then
+  echo "Archive contents:"
+  cd $DESTINATION
+  du -ah $DESTINATION
+  cd - > /dev/null
+fi
 
 GZIP_FILE="dugite-native-$VERSION-macos-test.tar.gz"
 LZMA_FILE="dugite-native-$VERSION-macos-test.lzma"
